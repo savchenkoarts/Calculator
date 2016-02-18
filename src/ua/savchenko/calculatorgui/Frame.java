@@ -1,9 +1,9 @@
-package ua.savchenko.calculatorui;
+package ua.savchenko.calculatorgui;
 
-import javax.swing.*;
+import ua.savchenko.calculatorgui.gui.CalculatorFrame;
 import java.awt.*;
 
-class Frame extends JFrame {
+class Frame {
     public static void main(String[] args) {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
