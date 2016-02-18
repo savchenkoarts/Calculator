@@ -28,32 +28,43 @@ public class CalculatorFrame extends JFrame{
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
 
+        add(createTextPanel(), BorderLayout.PAGE_START);
+        add(panelNumber(), BorderLayout.CENTER);
+        add(panelOperation(), BorderLayout.LINE_END);
+
+        setVisible(true);
+        pack();
+    }
+
+    private JTextArea createTextArea(){
         textArea = new JTextArea(7, 20);
         textArea.setBorder(new TitledBorder("Дисплей"));
         textArea.setEditable(false);
-        JScrollPane scroll = new JScrollPane(textArea);
-        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        textArea.addKeyListener(key.keyAdapter);
+        return textArea;
+    }
 
+    private JScrollPane scroll(){
+        JScrollPane scroll = new JScrollPane(createTextArea());
+        scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+        return scroll;
+    }
+
+    private JTextField createTextField(){
         textField = new JTextField("0", 15);
         textField.setPreferredSize(new Dimension(250, 40));
         textField.setHorizontalAlignment(JTextField.RIGHT);
         Font font = new Font("Verdana", Font.BOLD, 15);
         textField.setFont(font);
         textField.setForeground(Color.blue);
+        return textField;
+    }
 
+    private JPanel createTextPanel(){
         JPanel textPanel = new JPanel(new BorderLayout());
-        textPanel.add(scroll, BorderLayout.PAGE_START);
-        textPanel.add(textField, BorderLayout.PAGE_END);
-
-        textArea.addKeyListener(key.keyAdapter);
-
-        add(textPanel, BorderLayout.PAGE_START);
-        add(panelNumber(), BorderLayout.CENTER);
-        add(panelOperation(), BorderLayout.LINE_END);
-
-
-        setVisible(true);
-        pack();
+        textPanel.add(scroll(), BorderLayout.PAGE_START);
+        textPanel.add(createTextField(), BorderLayout.PAGE_END);
+        return textPanel;
     }
 
     public JTextField getTextField() {
@@ -88,11 +99,24 @@ public class CalculatorFrame extends JFrame{
         return start;
     }
 
+    public void clean(){
+        textField.setText("");
+        lastCommand = "=";
+        result = 0;
+        start = false;
+    }
+
+    public JOptionPane createErrorPanel(){
+        JOptionPane errorPane = new JOptionPane();
+        errorPane.showMessageDialog(null,"Not supported operation", "Error!", JOptionPane.ERROR_MESSAGE);
+        return errorPane;
+    }
+
     public Calculator getCalculator() {
         return calculator;
     }
 
-    JPanel panelNumber(){
+    private JPanel panelNumber(){
         panelNumber = new JPanel(new GridBagLayout());
 
         String[] operations = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."};
@@ -151,7 +175,7 @@ public class CalculatorFrame extends JFrame{
         return panelNumber;
     }
 
-    JPanel panelOperation(){
+    private JPanel panelOperation(){
         operation = new JPanel(new GridBagLayout());
 
         String[] operations = {"/", "*", "-", "+", "C", "="};

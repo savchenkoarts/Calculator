@@ -31,6 +31,11 @@ public class Calculator {
                 frame.setResult(x);
                 break;
         }
+
+        if(x == -1 || x == 0){
+            frame.createErrorPanel();
+        }
+
         frame.getTextField().setText("" + frame.getResult());
         if(!frame.getLastCommand().equals("=")){
             frame.getTextArea().setText(frame.getTextArea().getText() + " " + resultFirst + " " + frame.getLastCommand() + " " + x + " = " + frame.getResult() + "\n");
