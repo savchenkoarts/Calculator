@@ -3,4 +3,8 @@
 .idea/
 out/
 *.iml
+<<<<<<< HEAD
 src/ua/savchenko/calculator/
+=======
+src/ua/savchenko/calculator/
+>>>>>>> 4e788b5ba7c5273bc391b62544cda9141cd11c51
