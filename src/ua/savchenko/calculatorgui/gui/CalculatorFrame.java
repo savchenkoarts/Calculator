@@ -10,6 +10,8 @@ public class CalculatorFrame extends JFrame{
     private String lastCommand = "=";
     private double result = 0;
     private boolean start = true;
+    private double resultFirst;
+    private double resultSecond;
 
     private JTextArea textArea;
     private JTextField textField;
@@ -19,7 +21,6 @@ public class CalculatorFrame extends JFrame{
 
     private InsertAction insertAction = new InsertAction(this);
     private CommandAction commandAction = new CommandAction(this);
-    private Calculator calculator = new Calculator(this);
     private Key key = new Key(this);
 
     public CalculatorFrame(){
@@ -71,24 +72,8 @@ public class CalculatorFrame extends JFrame{
         return textField;
     }
 
-    public JTextArea getTextArea(){
-        return textArea;
-    }
-
-    public String getLastCommand() {
-        return lastCommand;
-    }
-
     public void setLastCommand(String lastCommand) {
         this.lastCommand = lastCommand;
-    }
-
-    public double getResult() {
-        return result;
-    }
-
-    public void setResult(double result) {
-        this.result = result;
     }
 
     public void setStart(boolean start) {
@@ -106,14 +91,21 @@ public class CalculatorFrame extends JFrame{
         start = false;
     }
 
+    public void toCalculator(){
+        resultFirst = result;
+        resultSecond = Double.parseDouble(textField.getText());
+        result = Calculator.calculate(Double.parseDouble(textField.getText()), lastCommand, result);
+        textField.setText("" + result);
+        if(!lastCommand.equals("=")){
+            textArea.setText(textArea.getText() + " " + resultFirst + " " + lastCommand + " " + resultSecond + " = " + result + "\n");
+        }
+        start = true;
+    }
+
     public JOptionPane createErrorPanel(){
         JOptionPane errorPane = new JOptionPane();
         errorPane.showMessageDialog(null,"Not supported operation", "Error!", JOptionPane.ERROR_MESSAGE);
         return errorPane;
-    }
-
-    public Calculator getCalculator() {
-        return calculator;
     }
 
     private JPanel panelNumber(){

@@ -40,9 +40,8 @@ public class Key {
                             }
                             if(panelOperationKey[i] != "C"){
                                 if(!frame.getTextField().getText().equals("")){
-                                    frame.getCalculator().calculate(Double.parseDouble(frame.getTextField().getText()));
+                                    frame.toCalculator();
                                     frame.setLastCommand(panelOperationKey[i]);
-                                    frame.setStart(true);
                                 }else{
                                     frame.getTextField().setText("0");
                                 }
