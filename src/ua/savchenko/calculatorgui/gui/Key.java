@@ -28,17 +28,17 @@ public class Key {
                 for (int i = 0; i < panelOperation.length; i++) {
                     if ((e.getKeyCode()) == panelOperation[i]) {
                         if (frame.getStart()) {
-                            if (panelOperationKey[i] == "C") {
+                            if (panelOperationKey[i].equals("C")) {
                                 frame.clean();
                             }
-                            if(panelOperationKey[i] != "C"){
+                            if(!panelOperationKey[i].equals("C")){
                                 frame.setLastCommand(panelOperationKey[i]);
                             }
                         } else {
-                            if (panelOperationKey[i] == "C") {
+                            if (panelOperationKey[i].equals("C")) {
                                 frame.clean();
                             }
-                            if(panelOperationKey[i] != "C"){
+                            if(!panelOperationKey[i].equals("C")){
                                 if(!frame.getTextField().getText().equals("")){
                                     frame.toCalculator();
                                     frame.setLastCommand(panelOperationKey[i]);
